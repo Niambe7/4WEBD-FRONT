@@ -63,7 +63,21 @@ const mockEvents = [
     });
   };
 
+
+  // Fonction pour créer un événement (simulation)
+  const createEvent = async (eventData) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // On simule la création en assignant un id unique basé sur le timestamp
+        const newEvent = { ...eventData, id: Date.now() };
+        // Ajout du nouvel événement dans le tableau simulé
+        mockEvents.push(newEvent);
+        resolve(newEvent);
+      }, 500);
+    });
+  };
+
 export default {
-  getEvents,
+  getEvents, createEvent
   // Ajoute createEvent, updateEvent, deleteEvent si besoin
 };

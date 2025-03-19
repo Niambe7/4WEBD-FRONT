@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import EventsPage from './pages/EventsPage';
 import EventDetailPage from './pages/EventDetailPage';
+import AddEventPage from './pages/AddEventPage';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
 
@@ -37,6 +38,14 @@ function App() {
                   <EventDetailPage />
                 </ProtectedRoute>
               }
+            />
+
+            <Route
+             path="/add-event"
+              element={
+              <AddEventPage />
+              }
+
             />
 
             <Route 
