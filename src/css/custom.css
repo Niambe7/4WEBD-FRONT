@@ -11,3 +11,27 @@
     margin-right: auto;
   }
   
+
+  .mb-3{
+    color: blue;
+  }
+
+  .size-box-admin{
+    margin-top: 50px;
+    
+  }
+
+  ..my-card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    background-color: #ffffff; /* couleur de base, ici blanc */
+  }
+  
+  .my-card-hover:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+    background-color: #f2f5f5; /* couleur au survol, ici un gris très clair */
+  }
+  
+  .mb-cards{
+    padding-bottom: 30px;
+  }

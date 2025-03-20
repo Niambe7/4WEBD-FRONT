@@ -77,7 +77,37 @@ const mockEvents = [
     });
   };
 
+
+// Fonction pour modifier un événement (simulation)
+  const updateEvent = async (updatedEvent) => {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        // On cherche l'index de l'événement à mettre à jour
+        const index = mockEvents.findIndex((ev) => ev.id === updatedEvent.id);
+        if (index !== -1) {
+          mockEvents[index] = updatedEvent;
+        }
+        resolve(updatedEvent);
+      }, 500);
+    });
+  };
+
+  const deleteEvent = async (id) => {
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        const index = mockEvents.findIndex((ev) => ev.id === id);
+        if (index !== -1) {
+          // Supprimer l'événement du tableau
+          mockEvents.splice(index, 1);
+          resolve(true);
+        } else {
+          reject(new Error("Événement non trouvé"));
+        }
+      }, 500); // délai simulé
+    });
+  };
+
 export default {
-  getEvents, createEvent
+  getEvents, createEvent , updateEvent , deleteEvent
   // Ajoute createEvent, updateEvent, deleteEvent si besoin
 };

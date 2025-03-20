@@ -1,7 +1,10 @@
-import React from 'react';
+// src/components/Header.jsx
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../contexts/AuthContext';
 
 const Header = () => {
+  const { user } = useContext(AuthContext);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
@@ -14,8 +17,13 @@ const Header = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/events">Événements</Link>
             </li>
+            {user && user.role === 'Admin' && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/admin">Admin</Link>
+              </li>
+            )}
             <li className="nav-item">
-              <Link className="nav-link" to="/dashboard">Dashboard</Link>
+              <Link className="nav-link" to="/login">Connexion</Link>
             </li>
           </ul>
         </div>
