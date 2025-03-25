@@ -14,6 +14,7 @@ import EditEventPage from './pages/EditEventPage';
 import PaymentPage from './pages/PaymentPage';
 import MesReservationsPage from './pages/MesReservationsPage';
 import RoleProtectedRoute from './components/RoleProtectedRoute';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   return (
@@ -47,7 +48,8 @@ function App() {
                 </RoleProtectedRoute>
               }
             />
-
+            
+          <Route path="/register" element={<RegisterPage />} />
               
             </Routes>
           </div>

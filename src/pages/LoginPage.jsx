@@ -20,35 +20,42 @@ const LoginPage = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <h2>Connexion</h2>
-      {error && <div className="alert alert-danger">{error}</div>}
-      <form onSubmit={handleSubmit}>
-        <div className="mb-3">
-          <label htmlFor="email" className="form-label">Email :</label>
-          <input 
-            type="email"
-            id="email"
-            className="form-control"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required 
-          />
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="card p-4 shadow" style={{ maxWidth: '400px', width: '100%' }}>
+        <h2 className="text-center mb-4">Connexion</h2>
+        {error && <div className="alert alert-danger">{error}</div>}
+        <form onSubmit={handleSubmit}>
+          <div className="mb-3">
+            <label htmlFor="email" className="form-label">Email :</label>
+            <input 
+              type="email"
+              id="email"
+              className="form-control"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required 
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="password" className="form-label">Mot de passe :</label>
+            <input 
+              type="password"
+              id="password"
+              className="form-control"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required 
+              autoComplete="current-password"
+            />
+          </div>
+          <button type="submit" className="btn btn-primary w-100">Se connecter</button>
+        </form>
+        <div className="mt-3 text-center">
+          <p>
+            Vous n'avez pas de compte ? <a href="/register">Inscrivez-vous ici</a>.
+          </p>
         </div>
-        <div className="mb-3">
-          <label htmlFor="password" className="form-label">Mot de passe :</label>
-          <input 
-            type="password"
-            id="password"
-            className="form-control"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required 
-            autoComplete="current-password"
-          />
-        </div>
-        <button type="submit" className="btn btn-primary">Se connecter</button>
-      </form>
+      </div>
     </div>
   );
 };
