@@ -5,6 +5,7 @@ import { AuthContext } from '../contexts/AuthContext';
 
 const Header = () => {
   const { user } = useContext(AuthContext);
+  console.log("User:", user);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
@@ -17,9 +18,15 @@ const Header = () => {
             <li className="nav-item">
               <Link className="nav-link" to="/events">Événements</Link>
             </li>
-            {user && user.role === 'Admin' && (
+            {user && user.role === 'admin' && (
               <li className="nav-item">
                 <Link className="nav-link" to="/admin">Admin</Link>
+              </li>
+            )}
+
+            {user && user.role === 'user' && (
+              <li className="nav-item">
+                <Link className="nav-link" to="/mes-reservations">Mes Reservations</Link>
               </li>
             )}
             <li className="nav-item">

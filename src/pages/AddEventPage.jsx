@@ -7,10 +7,10 @@ const AddEventPage = () => {
   const [formData, setFormData] = useState({
     title: '',
     date: '',
-    location: '',
+    venue: '',
     artist: '',
     price: '',
-    imageUrl: '', // contiendra l'URL temporaire de l'image uploadée
+    image: null,
   });
   
   const [selectedFile, setSelectedFile] = useState(null);
@@ -31,10 +31,10 @@ const AddEventPage = () => {
     const file = e.target.files[0];
     if (file) {
       setSelectedFile(file);
-      // Création d'une URL temporaire pour l'aperçu de l'image
+      // Pour l'instant, on peut stocker le fichier dans formData.image
       setFormData((prevData) => ({
         ...prevData,
-        imageUrl: URL.createObjectURL(file),
+        image: file,
       }));
     }
   };
@@ -44,12 +44,20 @@ const AddEventPage = () => {
     setLoading(true);
     setError('');
     try {
-      // Ici, pour l'instant, on envoie formData incluant l'URL d'aperçu.
-      // Plus tard, tu pourras créer un FormData pour envoyer le fichier.
-      const createdEvent = await eventService.createEvent(formData);
-      console.log('Événement créé :', createdEvent);
+      // Si vous devez envoyer un fichier, utilisez FormData
+      const dataToSend = new FormData();
+      dataToSend.append('title', formData.title);
+      dataToSend.append('date', formData.date);
+      dataToSend.append('venue', formData.venue);
+      dataToSend.append('artist', formData.artist);
+      dataToSend.append('price', formData.price);
+      if (formData.image) {
+        dataToSend.append('image', formData.image);
+      }
+
+      const createdEvent = await eventService.createEvent(dataToSend);
+      console.log('Événement créé:', createdEvent);
       setSuccess(true);
-      // Redirection vers la page des événements après quelques secondes
       setTimeout(() => {
         navigate('/events');
       }, 2000);
@@ -99,13 +107,13 @@ const AddEventPage = () => {
           />
         </div>
         <div className="mb-3">
-          <label htmlFor="location" className="form-label">Lieu</label>
+          <label htmlFor="venue" className="form-label">Lieu</label>
           <input
             type="text"
             className="form-control"
-            id="location"
-            name="location"
-            value={formData.location}
+            id="venue"
+            name="venue"
+            value={formData.venue}
             onChange={handleChange}
             required
           />
@@ -126,6 +134,7 @@ const AddEventPage = () => {
           <label htmlFor="price" className="form-label">Prix (€)</label>
           <input
             type="number"
+            step="0.01"
             className="form-control"
             id="price"
             name="price"
@@ -134,7 +143,6 @@ const AddEventPage = () => {
             required
           />
         </div>
-        {/* Champ d'upload pour l'image */}
         <div className="mb-3">
           <label htmlFor="imageUpload" className="form-label">Choisir une image</label>
           <input
@@ -145,13 +153,6 @@ const AddEventPage = () => {
             onChange={handleFileChange}
           />
         </div>
-        {/* Affichage de l'aperçu de l'image si disponible */}
-        {formData.imageUrl && (
-          <div className="mb-3">
-            <p>Aperçu de l'image :</p>
-            <img src={formData.imageUrl} alt="Aperçu" style={{ maxWidth: '300px' }} />
-          </div>
-        )}
         <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? "Création en cours..." : "Créer l'événement"}
         </button>

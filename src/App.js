@@ -11,6 +11,8 @@ import EventDetailPage from './pages/EventDetailPage';
 import AddEventPage from './pages/AddEventPage';
 import AdminDashboard from './pages/AdminDashboard';
 import EditEventPage from './pages/EditEventPage';
+import PaymentPage from './pages/PaymentPage';
+import MesReservationsPage from './pages/MesReservationsPage';
 import RoleProtectedRoute from './components/RoleProtectedRoute';
 
 function App() {
@@ -27,14 +29,26 @@ function App() {
               <Route path="/events/:id" element={<EventDetailPage />} />
               <Route path="/add-event" element={<AddEventPage />} />
               <Route path="/events/:id/edit" element={<EditEventPage />} />
+              <Route path="/events/:id/reserve" element={<PaymentPage />} />
               <Route
                 path="/admin"
                 element={
-                  <RoleProtectedRoute allowedRoles={['Admin']}>
+                  <RoleProtectedRoute allowedRoles={['admin']}>
                     <AdminDashboard />
                   </RoleProtectedRoute>
                 }
               />
+
+            <Route
+              path="/mes-reservations"
+              element={
+                <RoleProtectedRoute allowedRoles={['user']}>
+                  <MesReservationsPage />
+                </RoleProtectedRoute>
+              }
+            />
+
+              
             </Routes>
           </div>
           <Footer />

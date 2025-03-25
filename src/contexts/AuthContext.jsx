@@ -1,59 +1,48 @@
-
-
-// import React, { createContext, useState } from 'react';
-
-// export const AuthContext = createContext();
-
-// export const AuthProvider = ({ children }) => {
-//   //const [user, setUser] = useState(null); // null si pas connecté
-
-  
-//   const [user, setUser] = useState({ email: 'demo@exemple.com' });
-
-//   const login = (userData) => {
-//     setUser(userData);
-//     // stocker le token dans le localStorage par exemple
-//   };
-
-//   const logout = () => {
-//     setUser(null);
-//     // nettoyer le token
-//   };
-
-//   return (
-//     <AuthContext.Provider value={{ user, login, logout }}>
-//       {children}
-//     </AuthContext.Provider>
-//   );
-// };
-
-
-
+// src/contexts/AuthContext.jsx
 import React, { createContext, useState } from 'react';
+import authService from '../services/authService';
 
 export const AuthContext = createContext();
 
-// Pour la démo, on initialise avec un admin par défaut.
-const defaultAdmin = {
-  email: 'admin@test.com',
-  role: 'Admin', // ou 'EventCreator' selon le besoin
-};
-
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(defaultAdmin); // Pour tester, on part d'un admin connecté
+  const storedUser = localStorage.getItem('user');
+  let initialUser = null;
+  try {
+    if (storedUser && storedUser !== "undefined") {
+      initialUser = JSON.parse(storedUser);
+    }
+  } catch (error) {
+    console.error("Erreur lors du parsing de storedUser :", error);
+  }
+  
+  const storedToken = localStorage.getItem('token');
 
-  const login = (userData) => {
-    setUser(userData);
-    // Stockage en local ou autre gestion de token plus tard.
+  const [user, setUser] = useState(initialUser);
+  const [token, setToken] = useState(storedToken || null);
+
+  const login = async (email, password) => {
+    try {
+      const data = await authService.login(email, password);
+      setUser(data.user);
+      setToken(data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      localStorage.setItem('token', data.token);
+      return data;
+    } catch (error) {
+      console.error("Erreur de connexion", error);
+      throw error;
+    }
   };
 
   const logout = () => {
     setUser(null);
-    // Nettoyage du token
+    setToken(null);
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout }}>
+    <AuthContext.Provider value={{ user, token, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

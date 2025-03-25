@@ -47,9 +47,9 @@ const ManageEvents = ({ goBack }) => {
     if (window.confirm("Êtes-vous sûr de vouloir supprimer cet événement ?")) {
       try {
         await eventService.deleteEvent(id);
-        // Mettre à jour le state local pour retirer l'événement supprimé
-        setEvents((prev) => prev.filter((ev) => ev.id !== id));
-      } catch (err) {
+        // Mise à jour du state pour retirer l'événement supprimé de la liste
+        setEvents((prevEvents) => prevEvents.filter((ev) => ev.id !== id));
+      } catch (error) {
         alert("Erreur lors de la suppression de l'événement.");
       }
     }

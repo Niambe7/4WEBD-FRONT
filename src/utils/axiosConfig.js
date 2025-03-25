@@ -1,17 +1,53 @@
+// src/utils/axiosConfig.js
 import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: 'http://localhost:5000/api', // adapte selon ton backend
+export const axiosInstance = axios.create({
+  baseURL: process.env.REACT_APP_API_AUTH_URL || 'http://localhost:7002', // URL du microservice auth
   timeout: 5000,
 });
 
-// Optionnel : ajouter un interceptors pour gérer les tokens d'authentification
+export const axiosInstanceEvent = axios.create({
+  baseURL: process.env.REACT_APP_API_EVENT_URL || 'http://localhost:7004', // URL du microservice event-service
+  timeout: 5000,
+});
+
+export const axiosInstanceTicket = axios.create({
+  baseURL: process.env.REACT_APP_API_EVENT_URL || 'http://localhost:7006', // URL du microservice event-service
+  timeout: 5000,
+});
+
+// Intercepteur pour ajouter le token aux requêtes si présent
 axiosInstance.interceptors.request.use(
   (config) => {
-    // Exemple : config.headers.Authorization = `Bearer ${token}`;
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-export default axiosInstance;
+
+axiosInstanceEvent.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
+
+
+axiosInstanceTicket.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
