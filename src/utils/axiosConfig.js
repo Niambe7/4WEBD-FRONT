@@ -12,7 +12,7 @@ export const axiosInstanceEvent = axios.create({
 });
 
 export const axiosInstanceTicket = axios.create({
-  baseURL: process.env.REACT_APP_API_EVENT_URL || 'http://localhost:7006', // URL du microservice event-service
+  baseURL: process.env.REACT_APP_API_EVENT_URL || 'http://localhost:7006', // URL du microservice ticket-service
   timeout: 5000,
 });
 

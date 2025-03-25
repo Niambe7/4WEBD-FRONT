@@ -37,33 +37,47 @@ const MesReservationsPage = () => {
     <div className="container mt-4">
       <h2 className="mb-4 text-center">Mes Tickets</h2>
       <div className="row">
-{reservations.map((ticket) => {
-  const imagePath = ticket.eventImage ? ticket.eventImage.replace(/\\/g, '/') : 'default-image.png';
-  const fullImageUrl = `http://localhost:7004/${imagePath}`;
-  console.log("URL de l'image :", fullImageUrl);
-  return (
-    <div key={ticket.id} className="col-md-4 mb-4">
-      <div className="card h-100 shadow-sm">
-        <img
-          src={fullImageUrl}
-          alt={ticket.eventTitle}
-          className="card-img-top"
-          style={{ objectFit: 'cover', height: '200px' }}
-        />
-        <div className="card-body">
-          <h5 className="card-title">{ticket.eventTitle}</h5>
-          <p className="card-text">
-            <strong>Date :</strong> {new Date(ticket.eventDate.trim()).toLocaleDateString()}
-          </p>
-          <p className="card-text">
-            <strong>Quantité :</strong> {ticket.quantity}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-})}
+        {reservations.map((ticket) => {
+          // On récupère eventImage et on corrige les backslashes
+          let imagePath = ticket.eventImage ? ticket.eventImage.replace(/\\/g, '/') : 'default-image.png';
+          
+          // Si l'image ne commence pas par "http", on la préfixe avec l'URL de base
+          const fullImageUrl = imagePath.startsWith('http')
+            ? imagePath
+            : `http://localhost:7004/${imagePath}`;
 
+          // Vérifier et formater la date
+          let formattedDate = "Date inconnue";
+          if (ticket.eventDate) {
+            try {
+              formattedDate = new Date(ticket.eventDate.trim()).toLocaleDateString();
+            } catch (e) {
+              console.error("Erreur lors du formatage de la date:", e);
+            }
+          }
+
+          return (
+            <div key={ticket.id} className="col-md-4 mb-4">
+              <div className="card h-100 shadow-sm">
+                <img
+                  src={fullImageUrl}
+                  alt={ticket.eventTitle}
+                  className="card-img-top"
+                  style={{ objectFit: 'cover', height: '200px', width: '100%' }}
+                />
+                <div className="card-body">
+                  <h5 className="card-title">{ticket.eventTitle}</h5>
+                  <p className="card-text">
+                    <strong>Date :</strong> {formattedDate}
+                  </p>
+                  <p className="card-text">
+                    <strong>Quantité :</strong> {ticket.quantity}
+                  </p>
+                </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
     </div>
   );
