@@ -1,4 +1,5 @@
 import React from 'react';
+import { FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
 
 const Footer = () => {
   return (
@@ -19,9 +20,9 @@ const Footer = () => {
           <div className="col-md-4">
             <h5>Contact</h5>
             <ul className="list-unstyled">
-              <li>Email: support@concerttickets.com</li>
+              <li>Email: support@senevent.com</li>
               <li>Téléphone: +33 1 23 45 67 89</li>
-              <li>Adresse: 123, Rue des Concerts, Paris</li>
+              <li>Avenue Guediawaye 44</li>
             </ul>
           </div>
           
@@ -29,14 +30,14 @@ const Footer = () => {
           <div className="col-md-4">
             <h5>Suivez-nous</h5>
             <ul className="list-unstyled">
-              <li><a href="#" className="text-muted">Facebook</a></li>
-              <li><a href="#" className="text-muted">Twitter</a></li>
-              <li><a href="#" className="text-muted">Instagram</a></li>
+              <li><a href="#" className="text-muted"> <FaFacebookF/> </a></li>
+              <li><a href="#" className="text-muted"> <FaTwitter/> </a></li>
+              <li><a href="#" className="text-muted"> <FaInstagram/> </a></li>
             </ul>
           </div>
         </div>
         <div className="mt-3">
-          <span className="text-muted">© 2025 Concert Tickets</span>
+          <span className="text-muted">© 2025  SENEVENT</span>
         </div>
       </div>
     </footer>

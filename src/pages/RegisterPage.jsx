@@ -1,5 +1,7 @@
+// src/pages/RegisterPage.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import authService from '../services/authService';
 
 const RegisterPage = () => {
   const [firstname, setFirstname] = useState('');
@@ -8,17 +10,35 @@ const RegisterPage = () => {
   const [phone, setPhone] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
+  
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ajoutez la logique d'inscription ici (envoi des données à l'API, etc.)
+    setLoading(true);
+    setError('');
     try {
-      // Simulez l'inscription avec succès
-      console.log('Inscription réussie', { firstname, lastname, email, phone, password });
-      navigate('/login'); // Redirige l'utilisateur vers la page de connexion après inscription
+      // Construire le payload d'inscription
+      const userData = {
+        firstname,
+        lastname,
+        email,
+        phone,
+        password,
+        // Vous pouvez ajouter d'autres champs requis par votre API, comme le rôle par défaut "user"
+        role: "user"
+      };
+      
+      const data = await authService.register(userData);
+      console.log('Inscription réussie', data);
+      // Rediriger vers la page de connexion après inscription
+      navigate('/login');
     } catch (err) {
+      console.error("Erreur lors de l'inscription:", err);
       setError("Erreur lors de l'inscription, veuillez réessayer.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -84,7 +104,9 @@ const RegisterPage = () => {
               autoComplete="new-password"
             />
           </div>
-          <button type="submit" className="btn btn-primary w-100">S'inscrire</button>
+          <button type="submit" className="btn btn-primary w-100" disabled={loading}>
+            {loading ? "Inscription en cours..." : "S'inscrire"}
+          </button>
         </form>
         <div className="mt-3 text-center">
           <p>

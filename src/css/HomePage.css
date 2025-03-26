@@ -1,0 +1,50 @@
+.homepage {
+    background-image: url('/public/im3.jpg');
+    background-size: cover;        /* L'image couvre toute la zone */
+    background-position: center;   /* Centrée */
+    background-repeat: no-repeat;  /* Pas de répétition */
+    
+    /* Hauteur : toute la fenêtre */
+    min-height: 70vh;
+  
+    /* Retirer les marges internes */
+    margin: 0;
+    padding: 0;
+  
+    /* Pour centrer le contenu si nécessaire */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .homepage-content {
+    text-align: center;
+    color: white;
+    background: rgba(0, 0, 0, 0.5); /* Optionnel : assombrit le fond pour rendre le texte lisible */
+    padding: 20px;
+    border-radius: 8px;
+  }
+
+  .btn-discover-event{
+    color: aliceblue;
+    background-color: aqua;
+    display: block;
+  }
+  
+
+  .btn-custom {
+    background-color: #1266d4; /* Mettez ici la couleur de votre footer */
+    color: #fff;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none; /* Pour éviter le soulignement sur un <Link> */
+    display: inline-block;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-custom:hover {
+    background-color: #3f0249; 
+  }
