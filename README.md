@@ -4,21 +4,19 @@ This project is a web application that allows users to purchase and manage ticke
 
 The goal is to provide an intuitive and efficient platform where event organizers can easily manage ticket sales, and users can seamlessly book their seats. 🚀  
 
-# Getting Started with Create React App  
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).  
-
 ## Available Scripts  
+
+# The link to the Swagger documentation is   
+http://localhost:7008/docs
 
 ## Launching the Frontend  
 ## Navigate to the frontend folder  
 
-# cd frontend
-
+ cd frontend
 
 In the project directory, you can run:  
 
-### `npm start`  
+ npm start  
 
 Runs the app in development mode.  
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.  
