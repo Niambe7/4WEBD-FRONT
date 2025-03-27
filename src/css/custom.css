@@ -21,10 +21,11 @@
     
   }
 
-  ..my-card-hover {
+  .my-card-hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     background-color: #ffffff; /* couleur de base, ici blanc */
   }
+
   
   .my-card-hover:hover {
     transform: translateY(-5px);
